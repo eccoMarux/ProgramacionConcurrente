@@ -1,0 +1,39 @@
+a. Analice el funcionamiento del siguiente código. ¿Cuántos hilos de control
+participan en la ejecución?
+    Participan 3 hilos: 
+        -main.
+        -Cliente juan.
+        -Cliente ines.
+
+b. ¿Cúal es la funcionalidad del método “uso” de Recurso?
+    El metodo uso llama al metodo Thread.currentThread() de la clase Thread.
+    Este metodo devuelve una referencia al subproceso en el que se llama el método.
+
+c. Indique una salida posible.
+    Una posible salida es: 
+        Estoy en Clase Cliente. Soy Juan Lopez
+        Estoy en Clase Recurso: Soy Juan Lopez
+        Estoy en Clase Cliente. Soy Ines Garcia
+        Estoy en Clase Recurso: Soy Ines Garcia
+
+    Otra posible salida es:
+        Estoy en Clase Cliente. Soy Ines Garcia
+        Estoy en Clase Cliente. Soy Juan Lopez
+        Estoy en Clase Recurso: Soy Juan Lopez
+        Estoy en Clase Recurso: Soy Ines Garcia
+
+d. ¿Qué sucede si agrega la línea “Recurso.uso()” al final del main?
+    Cuando se agrega esta linea de codigo, el main tambien ejecuta el modulo uso de la 
+    Recurso y dice que es main. 
+    Una posible salida es la siguiente: 
+        Estoy en Clase Cliente. Soy Ines Garcia
+        Estoy en Clase Recurso: Soy main
+        Estoy en Clase Cliente. Soy Juan Lopez
+        Estoy en Clase Recurso: Soy Ines Garcia
+        Estoy en Clase Recurso: Soy Juan Lopez
+
+e. ¿Qué sucede si cambia el orden de las instrucciones “start()”?
+    Cambiar el lugar de los starts no determina quien va a tomar la CPU
+    primero ni cuanto tiempo se le va a asignar. Lo que va a pasar es que 
+    nunca va a decir que esta usando recurso antes de decir quien es 
+    (por secuencia de lectura de codigo).

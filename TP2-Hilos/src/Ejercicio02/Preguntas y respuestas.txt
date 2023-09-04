@@ -1,0 +1,15 @@
+a. ¿Cómo es el comportamiento de las diferentes ejecuciones?
+     En general lo hace primero "en el main" y dsp "en la pila", es decir
+     empieza el run de miHilo pero no termina de ejecutarse y le da CPU al main,
+     en otras ocasiones (cuando lo hacemos mas veces) encontramos que aveces se 
+     imprime 2 veces seguidas el main, y dsp 2 veces la pila, o intercalado
+
+
+b. ¿Se podría forzar las ejecuciones para que se comporte de una manera
+determinada? Realice las modificaciones pertinentes.
+    Si se podria obligar a que siempre haga el sout que imprime "En el main" y despues 
+    se imprima el mensaje de "En la pila" con miHilo.join(); en un bloque try-catch. Tambien 
+    se podria hacer al revez o incluso usar try-catch-finally. Otra forma seria utilizar 
+    miHilo.sleep(), pero el resultado no es garantizado ya que dependemos de que la CPU 
+    le de recursos al hilo que queremos y que el tiempo en el que duerme el hilo sea suficiente 
+    para que el otro hilo termine.

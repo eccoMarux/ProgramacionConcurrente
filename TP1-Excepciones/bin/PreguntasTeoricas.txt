@@ -1,0 +1,235 @@
+1) ¿Cuál es el nombre en Java de la Clase que define las excepciones, y de la que debe heredar 
+cualquier clase que queramos usar para representar una excepción?
+	En Java, la clase base que se utiliza para definir excepciones y de la cual deben heredar todas las clases de excepción personalizadas es 'java.lang.Exception'. 
+	El encabezado de la clase es: 
+	public class MiExcepcionPersonalizada extends Exception {
+		public MiExcepcionPersonalizada(String mensaje) {
+			//Codigo
+		}
+	}
+
+
+2) ¿Cuál es el nombre en Java de la clase que representa las excepciones que se
+producen al invocar un método de un objeto cuyo valor es “null”? ¿y para el caso de
+obtener un comportamiento anómalo en la entrada/salida de información?
+	En Java, las excepciones que se producen al intentar invocar un método en un objeto cuyo 
+	valor es "null" son representadas por la clase NullPointerException. 
+	En el caso de las excepciones relacionadas con comportamiento anómalo en la entrada/salida 
+	de información, una de las clases más comunes es IOException, aunque es común utilizar 
+	subclases más específicas para situaciones concretas.
+
+
+3) ¿Cuál es la peculiaridad de las excepciones del tipo “RuntimeException” (o de las
+subclases de la misma)?
+	Las excepciones del tipo "RuntimeException" y sus subclases en Java tienen una peculiaridad 
+	importante: no están obligadas a ser declaradas en la firma del método ni a ser capturadas 
+	explícitamente mediante un bloque 'try-catch'. Esta diferencia es lo que hace que estas 
+	excepciones se conozcan como excepciones no comprobadas o unchecked exceptions.
+	Las excepciones de este tipo son llamadas "unchecked exceptions" porque el compilador de 
+	Java no verifica si el programador las maneja o las declara en la firma del método. Esto es 
+	contrario a las excepciones comprobadas (checked exceptions), que están obligadas a ser 
+	capturadas o declaradas en la firma del método en el que pueden ocurrir.
+	Debido a esta peculiaridad, hay que tener cuidado al manejar excepciones "RuntimeException" 
+	para evitar que el programa termine abruptamente. En general, es una buena práctica evitar 
+	que estas excepciones ocurran mediante una programación cuidadosa y validaciones adecuadas 
+	en el código.
+
+
+4) Observa el siguiente fragmento de código:
+	public class App {
+		public static void main(String[] args) throws Exception {
+			String[] array_string = new String[25];
+			System.out.println(array_string[3].length());
+		}
+	}
+¿Qué excepción se produciría en el mismo?
+	Produce una excepción del tipo NullPointerException (java.lang.NullPointerException).
+	Esto ocurre porque se intenta invocar 'String.length()' (que retorna el largo del elemento 
+	tipo String) sobre un elemento que no ha sido inicializado y tiene como valor predeterminado
+	'null'.
+
+
+5) Observa el siguiente fragmento de código:
+	public class App {
+		public static void main(String[] args) throws Exception {
+			String aux = “hola”;
+			int aux2 = Integer.parseInt (aux);
+		}
+	}
+¿Qué sucedería al ejecutar el mismo?
+	Al ejecutar este codigo genera un error del tipo 'java.lang.Error' (excepcion en tiempo de 
+	ejecución). En particular, esta excepcion es una 'NumberFormatException'.
+	Esta excepción se lanza cuando intentas convertir una cadena ('String') en un valor numérico 
+	(en este caso, un entero) utilizando 'Integer.parseInt()' y la cadena no es un formato 
+	válido para la conversión numérica.
+
+
+6)Escribe el resultado de ejecutar el siguiente fragmento de código:
+	public static double acceso_por_indice (double [] v, int j)
+		throws RuntimeException{
+			try{
+				if ((0 <= j) && (j <= v.length)){
+					return v[j];
+				}else {
+					throw new RuntimeException ("El indice " + j + " no existe en el vector");
+				}
+			} catch (RuntimeException exc){
+			throw exc;
+		}
+	}
+	// Desde el siguiente cliente “main”:
+	public static void main(String [] args){
+		double [] v = new double [15];
+		acceso_por_indice (v, 16);
+	}
+
+Realice una crítica al uso de excepciones en este código y mejore el código para que sea acorde 
+a su crítica.
+
+	Se puede mejorar modificando el bloque de la estructura de control de la siguiente manera:
+	if ((j < 0) || (j > v.length)) {
+		throw new RuntimeException("El indice " + j + " no existe en el vector");
+	}
+	return v[j];
+
+	El ejercicio se encuentra listo para ser ejecutado (.java) en la carpeta Ejercicio06.
+
+
+7) Indicar cuál será la salida de la ejecución de cada una de las siguientes clases,
+justificando su respuesta.
+
+Los archivos .java se encuentran en la carpeta Ejercicio07, preparados para su ejecucion.
+
+a) La respuesta i) es la que corresponde al ejercicio. Las respuestas siguientes son producto de 
+experimentar con el codigo dado.
+	i) Respuesta de la terminal con codigo sin modificar.
+
+	Valor al final del try: 44 
+	Valor al final del finally: 45
+	Valor antes del return: 46
+	46
+
+	Explicacion:
+	Esto se debe a que en la linea 5 el valor de la variable valor es cero.
+	Entra a la estructura 'try-catch-finally'. Intenta resolver lo propuesto en try. Luego a valor 
+	le suma 1, quedando valor = 1. Luego, le suma a valor 42, resultando queda 43. Finalmente le
+	suma nuevamente 1, quedando valor=44. 
+	Como no encontró errores durante la ejecucion, salta a finally donde el valor es sumado en 1 
+	quedando valor=45.
+	Al salir de la estructura 'try-catch-finally', suma nuevamente 1 y lo retorna (quedando 
+	valor=46). 
+	El main imprime 46.
+
+	ii)Respuesta de la terminal modificando una linea en el try:
+
+	Valor al final del catch: 43
+	Valor al final del finally: 44
+	Valor antes del return: 45
+	45
+
+	Explicacion:
+	Si durante la ejecucion del programa, cambiamos la linea 
+	valor = valor + Integer.parseInt("42"); por valor = valor + Integer.parseInt("a"); luego de 
+	la linea valor = valor + 1; entonces sale de la estructura de 'try' con lo que ya ejecutó 
+	(es decir, valor = 1) y entra a 'catch' donde a valor se le suma 42 (valor = 43). 
+	Saliendo del catch, hace el finally donde suma 1 al valor (valor = 44) y antes del return 
+	suma 1 quedando valor =45. 
+	El main imprime 45.
+	
+	iii)Respuesta de la terminal modificando el modulo().
+	
+	Excepcion en metodo()
+	java.lang.NumberFormatException: For input string: "b"
+	
+	Explicacion:
+	Si hay un error tanto en el try como en el catch (el mismo error del try anterior tambien se 
+	replica en el catch) finally se ejecuta (valor=2) y en el main imprime el mensaje asignado 
+	en la estructura 'try-catch'. 
+	
+b) Respuesta de la terminal.
+
+	Valor al final del catch: 43
+	Valor al final del finally: 44
+	Valor antes del return: 45
+	45
+	
+	Explicacion:
+	Al existir un error en la linea donde valor = valor + Integer.parseInt("W");, el codigo deja 
+	de ejecutar el try y lee el catch donde al valor que ya fue seteado en el try (valor = 1), 
+	le suma 42 (valor = 43). Luego en finally suma 1 (valor = 44) y antes del return suma 1 
+	(valor = 45). 
+	El main escribe 45.
+	
+c) Respuesta de la terminal.
+	
+	Valor al final del finally: 2
+	Excepcion en metodo()
+	java.lang.NumberFormatException: For input string: "W".
+
+	Explicacion:
+	Como hay un error tanto en try como catch, entonces se ejecuta el try hasta antes del error, 
+	se ejecuta el catch hasta antes del error y finalmente se ejecuta el finally hasta antes del 
+	error. El valor final de valor es 2. Como el modulo tiene errores no contemplados, entonces 
+	el main entra en su estructura catch e imprime su mensaje seguido por la descripcion de la 
+	Excepcion.
+	
+d) Respuesta de la terminal.
+	
+	Valor al final del finally: 2
+	Excepcion en metodo()
+	java.lang.NumberFormatException: For input string: "W"
+	
+	Explicacion:
+	Cuando hay un error en el try (valor = valor + Integer.parseInt("W");) nunca pasa del try al 
+	catch porque el catch esta esperando errores del tipo IOException en lugar de errores del 
+	tipo NumberFormatException que es el tipo de error que se produce. Si accede a la ejecucion del 
+	finally por eso nos imprime valor = 2 pero al tener un error inesperado, el main imprime su 
+	mensaje ('Excepcion en metodo()') cuando encuentra un error del tipo Exception.
+	
+11) Responda verdadero o falso justificando su respuesta
+	a) Un bloque try tiene que ser seguido por un catch y un finally. 
+		Falso. El bloque try debe ser seguido inmediatamente por un catch o un finally.
+		
+	b) Si escribe un método que podría causar una excepción chequeada, debe encerrar el código 
+	de riesgo en un bloque try/catch. 
+		Verdadero. Si sabemos que puede causar una excepcion chequeada debemos encerrar el 
+		codigo en un 'try-catch' y tratar esta excepcion correctamente. 
+		
+	c) Solo las excepciones chequeadas pueden ser capturadas.
+		Falso. Tanto las excepciones chequeadas como las no chequeadas pueden ser capturadas por 
+		un bloque 'try-catch'. La diferencia radica en como el compilador trata las excepciones.
+		En el caso de las Excepciones Chequeadas, el copilador requiere que se manejen 
+		explicitamente o que se declaren usando 'throws'. Entonces este tipo de excepciones 
+		necesitan de un bloque de 'try-catch' para ser capturadas o declarando un metodo (ej: 
+		'public void metodo() throws IOException'{(...)}).
+		En el caso de las Excepciones NO Chequedas, el copilador no requiere que se manejen 
+		explicitamente. Estas excepciones suelen ser subclases de 'RuntimeException' o 'Error'. 
+		No es necesario capturalas o declararlas pero si se desea se pueden capturar en un 
+		bloque 'try-catch'. 
+		
+	d) Si escribe un método que declara que puede lanzar una excepción chequeada
+	por el compilador, se debe también envolver el código que lanza la excepción
+	en un bloque try/catch
+		Verdadero. Cuando un metodo que declara que puede lanzar una excepcion chequeada 
+		(mediante el uso de la palabra clave throws en la firma del método), el compilador exige 
+		que el código que llama a ese método envuelva esa llamada en un bloque try-catch o 
+		también declare que el método que contiene la llamada lanza esa excepción.
+	
+	e) Un bloque try puede existir por sí mismo, sin un bloque catch o un bloque
+	finally
+		Falso. Un bloque 'try' debe estar acompañado de al menos uno de los siguientes 
+		elementos: 'catch' o 'finally' o ambos. 
+		
+	
+	f) Un método con un bloque try y un bloque finally, puede opcionalmente
+	declarar la excepción.
+		Verdadero. En este caso, como se trabaja con un try y un finally puede declarar la 
+		excepcion opcionalmente utrilizando la palabra clave 'throws' pero no esta obligado a 
+		hacerlo. 
+	
+	g) Las excepciones de runtime deben ser manejadas o declaradas.
+		Falso. Las excepciones de tiempo de ejecucion (runtime exceptions) que son subclases de 
+		la clase 'RuntimeException' o sus ssubclases no estan obligadas a ser manejadas 
+		(capturadas con un bloque try-catch) ni declaradas (en un metodo() throws IOException). 
+		Esto es porque pertenecen a las excepciones llamadas "unchecked exceptions" o 
+		"excepciones no chequeadas".

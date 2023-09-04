@@ -1,0 +1,55 @@
+a. Si lo ejecuto varias veces, ¿qué sucede?
+Se crean dos hilos de la clase ThreadEjemplo. Al asignarles .start estan listos esperando su tiempo
+en la CPU. Dependiendo de su tiempo en CPU, pueden ejecutar algunas iteraciones de su recorrido hasta 
+terminar de hacerlas e imprimir que ha finalizado. Las salidas varian entre ellas y de computadora 
+en computadora debido al tiempo que el sistema ha decido otorgarle a cada hilo. 
+
+Una posible salida es la siguiente:
+    Termina thread main
+    0 Maria Jose
+    0 Jose Maria
+    1 Jose Maria
+    2 Jose Maria
+    1 Maria Jose
+    3 Jose Maria
+    2 Maria Jose
+    4 Jose Maria
+    3 Maria Jose
+    5 Jose Maria
+    4 Maria Jose
+    6 Jose Maria
+    5 Maria Jose
+    6 Maria Jose
+    7 Jose Maria
+    7 Maria Jose
+    8 Jose Maria
+    9 Jose Maria
+    8 Maria Jose
+    9 Maria Jose
+    Termina thread Jose Maria
+    Termina thread Maria Jose
+
+Otra posible salida es:
+    0 Maria Jose
+    1 Maria Jose
+    2 Maria Jose
+    3 Maria Jose
+    0 Jose Maria
+    1 Jose Maria
+    2 Jose Maria
+    3 Jose Maria
+    4 Jose Maria
+    5 Jose Maria
+    6 Jose Maria
+    7 Jose Maria
+    8 Jose Maria
+    9 Jose Maria
+    Termina thread Jose Maria
+    Termina thread main
+    4 Maria Jose
+    5 Maria Jose
+    6 Maria Jose
+    7 Maria Jose
+    8 Maria Jose
+    9 Maria Jose
+    Termina thread Maria Jose

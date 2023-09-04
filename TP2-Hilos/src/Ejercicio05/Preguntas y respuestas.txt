@@ -1,0 +1,60 @@
+5) Analizar el codigo y responder:
+a) ¿Qué pasaría si quitamos el sleep()?¿Cuál sería la salida del programa? 
+	Si quitamos el sleep del main pareciera no cambiar nada, y si quitamos
+	los 2, lo mismo, pero mas rapido.
+
+b) El main() ¿siempre termina al final, o puede suceder que termine antes que
+el run()? ¿Por qué puede suceder esto?
+	Siempre nos termino antes que el run(), puede suceder ambas cosas, esto
+	puede pasar por la prioridad en los recursos que elija el CPU.
+
+c) Realizar los cambios necesarios para implementar extendiendo la clase
+Thread. NO usar la interfaz Runnable.
+	El ejercicio esta disponible en la carpeta EjercicioC_extendThread.
+
+d) Realice el ejercicio para que en vez de ejecutar un solo hilo, ejecute 3.
+Realice el procedimiento varias veces. ¿Qué ocurre? ¿Se ejecutan en orden?
+
+	Al ejecutarlo varias veces con 3 hios diferentes se ejecutaron en el orden al
+	que accedian a su tiempo en de memoria. Vemos en el siguiente ejemplo que el hilo 2 perdio su tiempo en memoria, comenzo el hilo 3, termino el hilo 3 y luego termino el hilo 2.
+
+	La salida fue la siguiente:
+
+		Comenzando #1
+		En #1, el recuento 0
+		En #1, el recuento 1
+		En #1, el recuento 2
+		En #1, el recuento 3
+		En #1, el recuento 4
+		En #1, el recuento 5
+		En #1, el recuento 6
+		En #1, el recuento 7
+		En #1, el recuento 8
+		En #1, el recuento 9
+		Terminando #1
+		. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+		. . . . . . . . . . .Hilo principal finalizado.
+		Comenzando #2
+		En #2, el recuento 0
+		En #2, el recuento 1
+		En #2, el recuento 2
+		En #2, el recuento 3
+		En #2, el recuento 4
+		En #2, el recuento 5
+		En #2, el recuento 6
+		En #2, el recuento 7
+		Comenzando #3
+		En #3, el recuento 0
+		En #3, el recuento 1
+		En #3, el recuento 2
+		En #3, el recuento 3
+		En #3, el recuento 4
+		En #3, el recuento 5
+		En #3, el recuento 6
+		En #3, el recuento 7
+		En #3, el recuento 8
+		En #3, el recuento 9
+		Terminando #3
+		En #2, el recuento 8
+		En #2, el recuento 9
+		Terminando #2
