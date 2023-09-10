@@ -1,0 +1,146 @@
+Supongamos que debemos simular el proceso de cobro de un supermercado; es
+decir, unos clientes van con un carro lleno de productos y una cajera les cobra los
+productos, pasando uno a uno por el escáner de la caja registradora. En este caso el
+cajero debe procesar la compra cliente a cliente, es decir que primero le cobra al
+cliente 1, luego al cliente 2 y así sucesivamente.
+Para ello se debe definir una clase “Cajera” y una clase “Cliente” el cual tendrá un
+“array de enteros” que representarán los productos que ha comprado y el tiempo que
+El cajero tardará en pasar el producto por el escáner; es decir, que si tenemos un
+array con [1,3,5] significa que el cliente ha comprado 3 productos y que El cajero
+tardará en procesar el producto 1 ’1 segundo’, el producto 2 ’3 segundos’ y el
+producto 3 ’5 segundos’, con lo cual el tiempo total empleado por El cajero será de 9
+segundos.
+
+
+a. El siguiente código simula la operación de cobro con dos Clientes con un
+solo proceso (que es lo que se suele hacer normalmente), teniendo en cuenta que se 
+procesa primero la compra del Cliente 1 y después la del
+Cliente 2, con lo cual se tardará el tiempo del Cliente 1 + Cliente 2. Completar
+y ubicar en la clase que corresponda la implementación del método:
+esperarXsegundos.
+
+public class Cajero {
+private String nombre;
+// Agregar Constructor, y métodos de acceso
+public void procesarCompra(Cliente cliente, long timeStamp) {
+System.out.println ("El cajero " + this.nombre +" COMIENZA A
+PROCESAR LA COMPRA DEL CLIENTE " + cliente.getNombre() + " EN EL
+TIEMPO: " + (System.currentTimeMillis() - timeStamp) / 1000 +
+"seg");
+for (int i = 0; i < cliente.getCarroCompra().length; i++) {
+this.esperarXsegundos(cliente.getCarroCompra()[i]);
+System.out.println("Procesado el producto " + (i + 1) +
+"->Tiempo: " + (System.currentTimeMillis() - timeStamp) /
+1000 + "seg");
+}
+System.out.println("El cajero " + this.nombre +" HA TERMINADO DE
+PROCESAR " + cliente.getNombre() + " EN EL TIEMPO: " +
+(System.currentTimeMillis() - timeStamp) / 1000 + "seg");
+}
+}
+____________________________________________________________________
+public class Cliente {
+private String nombre;
+private int[] carroCompra;
+// Constructor y métodos de acceso
+}
+____________________________________________________________________
+public class Main {p
+ublic static void main(String[] args) {
+Cliente cliente1 = new Cliente("Cliente 1", new int[] { 2, 2, 1, 5,
+2, 3 });
+Cliente cliente2 = new Cliente("Cliente 2", new int[] { 1, 3, 5, 1,
+1 });
+Cajero cajero1 = new Cajera("Cajero 1");
+// Tiempo inicial de referencia
+long initialTime = System.currentTimeMillis();
+cajero1.procesarCompra(cliente1, initialTime);
+cajero1.procesarCompra(cliente2, initialTime);
+}
+}
+
+
+Salida:
+El cajero Cajera 1 COMIENZA A PROCESAR LA COMPRA DEL CLIENTE Cliente 1 EN EL
+TIEMPO:
+0seg
+Procesado el producto 1 ->Tiempo: 2seg
+Procesado el producto 2 ->Tiempo: 4seg
+Procesado el producto 3 ->Tiempo: 5seg
+Procesado el producto 4 ->Tiempo: 10seg
+Procesado el producto 5 ->Tiempo: 12seg
+Procesado el producto 6 ->Tiempo: 15seg
+El cajero Cajero 1 HA TERMINADO DE PROCESAR Cliente 1 EN EL TIEMPO: 15seg
+El cajero Cajero 1 COMIENZA A PROCESAR LA COMPRA DEL CLIENTE Cliente 2 EN EL
+TIEMPO:
+15seg
+Procesado el producto 1 ->Tiempo: 16seg
+Procesado el producto 2 ->Tiempo: 19seg
+Procesado el producto 3 ->Tiempo: 24seg
+Procesado el producto 4 ->Tiempo: 25seg
+Procesado el producto 5 ->Tiempo: 26seg
+El cajero Cajera 1 HA TERMINADO DE PROCESAR Cliente 2 EN EL TIEMPO: 26seg
+GENERACIÓN CORRECTA (total time: 26 seconds)
+
+
+b. ¿Y si en vez de procesar primero un cliente y después otro, procesamos los
+dos a la vez?, ¿Cuánto tardaría el programa en ejecutarse?. Si en vez de
+haber solo una Cajera (es decir un solo hilo), hubiese dos Cajeras (es decir
+dos hilos o threads) podríamos procesar los dos clientes a la vez y tardar
+menos tiempo en ejecutar el programa. Complete el siguiente código a fin de
+representar el escenario descrito.
+
+public class CajeroThread extends Thread {
+private String nombre;
+private Cliente cliente;
+private long initialTime;
+// Constructor, y métodos de acceso
+public void run() {
+System.out.println("El cajero " + this.nombre +
+" COMIENZA A PROCESAR LA COMPRA DEL CLIENTE "
++ this.cliente.getNombre() + " EN EL TIEMPO: "
++ (System.currentTimeMillis() - this.initialTime) / 1000 + "seg");
+for (int i = 0; i < this.cliente.getCarroCompra().length; i++) {
+this.esperarXsegundos(cliente.getCarroCompra()[i]);
+System.out.println("Procesado el producto " + (i + 1) + "
+del cliente " + this.cliente.getNombre() + "->Tiempo: " +
+(System.currentTimeMillis() - this.initialTime) / 1000
++ "seg");
+}
+System.out.println("El cajero" + this.nombre + "HA TERMINADO DE
+PROCESAR"+ this.cliente.getNombre() + " EN EL TIEMPO: " +
+(System.currentTimeMillis() - this.initialTime) / 1000 +
+"seg");
+}
+}
+public class MainThread {
+public static void main(String[] args) {
+Cliente cliente1 = new Cliente("Cliente 1", new int[] { 2, 2, 1, 5,
+2, 3 });
+Cliente cliente2 = new Cliente("Cliente 2", new int[] { 1, 3, 5, 1,
+1 });
+........
+}
+}
+
+
+Posible salida: run:
+El cajero Cajera 1 COMIENZA A PROCESAR LA COMPRA DEL CLIENTE Cliente 1 EN EL
+TIEMPO: 0seg
+El cajero Cajera 2 COMIENZA A PROCESAR LA COMPRA DEL CLIENTE Cliente 2 EN EL
+TIEMPO: 0seg
+Procesado el producto 1 del cliente Cliente 2->Tiempo: 1seg
+Procesado el producto 1 del cliente Cliente 1->Tiempo: 2seg
+Procesado el producto 2 del cliente Cliente 1->Tiempo: 4seg
+Procesado el producto 2 del cliente Cliente 2->Tiempo: 4seg
+Procesado el producto 3 del cliente Cliente 1->Tiempo: 5seg
+Procesado el producto 3 del cliente Cliente 2->Tiempo: 9seg
+Procesado el producto 4 del cliente Cliente 1->Tiempo: 10seg
+Procesado el producto 4 del cliente Cliente 2->Tiempo: 10seg
+Procesado el producto 5 del cliente Cliente 2->Tiempo: 11seg
+El cajero Cajera 2 HA TERMINADO DE PROCESAR Cliente 2 EN EL TIEMPO: 11seg
+Procesado el producto 5 del cliente Cliente 1->Tiempo: 12seg
+Procesado el producto 6 del cliente Cliente 1->Tiempo: 15seg
+El cajero Cajera 1 HA TERMINADO DE PROCESAR Cliente 1 EN EL TIEMPO: 15seg
+GENERACIÓN CORRECTA (total time: 15 seconds)
+
