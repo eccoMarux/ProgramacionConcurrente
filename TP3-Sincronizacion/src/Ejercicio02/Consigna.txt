@@ -1,0 +1,42 @@
+2) Realice un programa en el que se presente la interacción entre dos entidades que afectan
+un recurso compartido, al que llamaremos "Energía", inicializado en 10 unidades. La
+dinámica es la siguiente:
+● La Criatura Oscura (hilo 1) nos drena (-) 3 unidades de Energía.
+● El Sanador (hilo 2) nos revitaliza (+) 3 unidades de Energía.
+a) Asegúrese de considerar las operaciones de adquisición de energía, su
+modificación y su posterior actualización en el recurso compartido. Ejecuta el
+programa varias veces y registra el valor resultante en cada ocasión.
+b) Con base en sus observaciones, ¿qué conclusiones puede extraer?
+	En el programa sin sincronización, el resultado puede variar y no ser consistente. 
+	Para garantizar que los hilos se turnen correctamente para acceder y modificar la 
+	energía compartida, se debe implementar 'synchronized' en los métodos 'drenarEnergia' 
+	y 'revitalizarEnergia' de la clase 'Energia'.
+
+	Ejemplo de salida donde observamos que la en una ocación la Criatura Oscura dreno 6 de 
+	energia pero solo se ve reflejada una vez en la disminución de energia: 
+	
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 7
+		Sanador revitalizó 3 unidades de Energía. Energia: 10
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 7 
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 7
+		Sanador revitalizó 3 unidades de Energía. Energia: 10
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 4
+		Sanador revitalizó 3 unidades de Energía. Energia: 7
+		Sanador revitalizó 3 unidades de Energía. Energia: 10
+		Valor final de Energía: 10
+
+c) Luego, proceda a modificar el programa utilizando una herramienta para
+sincronizar la ejecución de los hilos.
+
+	Una vez realizados los cambios adecuados en la clase 'Energia', podemos ver que la 
+	salida de datos es consistente. Un ejemplo es: 
+	
+		Sanador revitalizó 3 unidades de Energía. Energia: 10
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 7
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 10
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 7
+		Sanador revitalizó 3 unidades de Energía. Energia: 13
+		Criatura Oscura drenó 3 unidades de Energía. Energia: 4
+		Sanador revitalizó 3 unidades de Energía. Energia: 7
+		Sanador revitalizó 3 unidades de Energía. Energia: 10
+		Valor final de Energía: 10

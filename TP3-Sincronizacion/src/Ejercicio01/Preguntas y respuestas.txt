@@ -1,0 +1,72 @@
+1) En este ejemplo vamos a tener 3 clases: una clase Main, una clase CuentaBanco y una
+clase VerificarCuenta (Hilo).
+a) Ejecute el código y comente el resultado. ¿Qué corrección debería realizar para
+mejorar la protección de los datos?.
+
+	El código simula una situación en la que dos hilos, "Luis" y "Manuel," 
+	intentan realizar retiros de una cuenta bancaria (CuentaBanco) compartida utilizando 
+	la clase 'VerificarCuenta' que implementa Runnable. La cuenta bancaria 
+	inicialmente tiene un saldo de 50.
+
+	Sin embargo, el código tiene un problema de concurrencia. Varios hilos pueden acceder 
+	y modificar el saldo de la cuenta bancaria al mismo tiempo, lo que puede llevar a 
+	resultados inesperados o incorrectos. Para proteger los datos y garantizar que las 
+	operaciones se realicen de manera segura, hay que usar sincronización.
+	
+	La sincronización se hace sobre el módulo HacerRetiro de la clase 'VerificarCuenta'. 
+	El módulo pasa de ser 
+	private void HacerRetiro(int cantidad) throws InterruptedException {//(...)} 
+	a 
+	private synchronized void HacerRetiro(int cantidad) throws InterruptedException 
+	{//(...)}.
+
+	La salida de ejecutar el codigo varias veces sin modificar las secciones críticas es: 
+
+		Luisestá realizando un retiro de: 10.
+		Manuelestá realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondosson de: 40
+		Luisestá realizando un retiro de: 10.
+		Manuel: Retiro realizado.
+		Manuel: Los fondosson de: 30
+		Manuelestá realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondosson de: 20
+		Luisestá realizando un retiro de: 10.
+		Manuel: Retiro realizado.
+		Manuel: Los fondosson de: 10
+		Manuelestá realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondosson de: 0
+		No hay suficiente dinero en la cuenta para realizar el retiro Sr.Luis
+		Su saldo actual es de0
+		Manuel: Retiro realizado.
+		Manuel: Los fondosson de: -10
+		La cuenta está sobregirada.
+		No hay suficiente dinero en la cuenta para realizar el retiro Sr.Manuel
+		Su saldo actual es de-10
+		La cuenta está sobregirada.
+		La cuenta está sobregirada.
+	
+	La salida luego de implementar sincronización: 
+		Luis está realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondos son de: 40
+		Luis está realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondos son de: 30
+		Luis está realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondos son de: 20
+		Luis está realizando un retiro de: 10.
+		Luis: Retiro realizado.
+		Luis: Los fondos son de: 10
+		Manuel está realizando un retiro de: 10.
+		Manuel: Retiro realizado.
+		Manuel: Los fondos son de: 0
+		No hay suficiente dinero en la cuenta para realizar el retiro Sr.Manuel
+		Su saldo actual es de 0
+		No hay suficiente dinero en la cuenta para realizar el retiro Sr.Manuel
+		Su saldo actual es de 0
+		No hay suficiente dinero en la cuenta para realizar el retiro Sr.Manuel
+		Su saldo actual es de 0
