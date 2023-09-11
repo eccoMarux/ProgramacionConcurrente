@@ -4,14 +4,14 @@ public class Energia {
     private int energia = 10;
 
     public int getEnergia(){
-        return energia;
+        return this.energia;
     }
 
     public void drenarEnergia(int cantDrenada){
-        energia -= cantDrenada;
+        this.energia -= cantDrenada;
     }
 
     public void revitalizarEnergia(int cantRevitalizada){
-        energia += cantRevitalizada;
+        this.energia += cantRevitalizada;
     }
 }
