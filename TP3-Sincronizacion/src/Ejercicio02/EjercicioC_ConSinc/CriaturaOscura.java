@@ -9,10 +9,10 @@ public class CriaturaOscura implements Runnable {
         this.finPeleaEpica= turnosDeLaCriatura;
     }
 
-    public void run() {
+    public synchronized void run() {
         for (inicioPeleaEpica = 0; inicioPeleaEpica < finPeleaEpica; inicioPeleaEpica++) {
             energia.drenarEnergia(3);
-            System.out.println("Criatura Oscura drenó 3 unidades de Energía. Energia: " + energia.getEnergia());
+            System.out.println("Criatura Oscura drenó 3 unidades de Energía. Energia: " + this.energia.getEnergia());
         }
 
     }
