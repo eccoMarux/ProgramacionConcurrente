@@ -12,7 +12,6 @@ public class Sanador implements Runnable {
     public synchronized void run() {
         for(inicioPeleaEpica =0; inicioPeleaEpica<finPeleaEpica; inicioPeleaEpica++){
         energia.revitalizarEnergia(3);
-        System.out.println("Sanador revitalizó 3 unidades de Energía. Energia: " + this.energia.getEnergia());
         }
     }
 }
