@@ -1,6 +1,6 @@
 package Ejercicio03;
 
-public class HamstersEnjaulados {
+public class Main {
     public static void main(String[] args) {
         Jaula jaula = new Jaula();
 

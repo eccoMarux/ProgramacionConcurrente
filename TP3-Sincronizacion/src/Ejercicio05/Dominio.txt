@@ -1,0 +1,11 @@
+Implemente una clase Auto, subclase de Vehículo con los atributos representativos de auto
+(patente, modelo, marca, km, etc). Un auto al recorrer varios kilómetros consume
+combustible, y cuando llega al nivel de la reserva debe cargar combustible para poder
+continuar. Considere que se desea simular la siguiente situación: Varios autos recorriendo
+la ciudad y un surtidor que despacha combustible.
+. Realice un programa para representar la situación. ¿Cómo representará los autos? ¿y el
+surtidor? Realice una prueba del programa con 5 autos como mínimo.
+- Considere que el surtidor tiene capacidad para máximo litros de combustible, que se
+van gastando a medida que los autos pasan a abastecerse.
+- Cada vez que se realiza una carga de combustible escriba un mensaje apropiado para
+informar el estado actual del surtidor
