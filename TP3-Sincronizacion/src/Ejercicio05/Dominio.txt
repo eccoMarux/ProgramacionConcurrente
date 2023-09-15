@@ -8,4 +8,4 @@ surtidor? Realice una prueba del programa con 5 autos como mínimo.
 - Considere que el surtidor tiene capacidad para máximo litros de combustible, que se
 van gastando a medida que los autos pasan a abastecerse.
 - Cada vez que se realiza una carga de combustible escriba un mensaje apropiado para
-informar el estado actual del surtidor
+informar el estado actual del surtidor.

@@ -1,20 +1,16 @@
 package Ejercicio05;
-
 class Surtidor {
-    private int combustibleDisponible;
+    private int capacidadActual;
 
-    public Surtidor(int cantCombustibleDisponible) {
-        this.combustibleDisponible = cantCombustibleDisponible;
+    public Surtidor(int capacidadInicial) {
+        this.capacidadActual = capacidadInicial;
     }
 
-    public synchronized void cargarCombustible(int cantidad) {
-        if (cantidad <= combustibleDisponible) {
-            combustibleDisponible -= cantidad;
-            System.out.println("Se han cargado " + cantidad + " litros de combustible.");
-            System.out.println("Combustible disponible en el surtidor: " + combustibleDisponible + " litros.");
-        } else {
-            System.out.println("No hay suficiente combustible disponible.");
+    public synchronized void abastecer(Auto auto) {
+        //Se asume que se carga el tanque completamente.
+        if (this.capacidadActual < auto.getCapacidadTanque()) {
+            this.capacidadActual -= auto.getCapacidadTanque();
+            System.out.println("El auto " + auto.patente + " cargó combustible del surtidor. \nNivel actual del surtidor: " + capacidadActual + " litros.");
         }
     }
-
 }

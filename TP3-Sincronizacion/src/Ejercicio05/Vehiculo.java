@@ -1,18 +1,19 @@
 package Ejercicio05;
 
-public class Vehiculo {
+class Vehiculo {
     protected String patente;
     protected String modelo;
     protected String marca;
-    protected int km;
+    protected int kilometraje;
 
-    //recordar que protected sirve para encapsular objetos. Solo Auto puede acceder a Vehiculo porque es
-    //subclase.
-
-    public Vehiculo(String patente, String modelo, String marca, int km) {
+    public Vehiculo(String patente, String modelo, String marca) {
         this.patente = patente;
         this.modelo = modelo;
         this.marca = marca;
-        this.km = km;
+        this.kilometraje = 0;
+    }
+
+    public void setKilometraje(int distancia) {
+        this.kilometraje += distancia;
     }
 }

@@ -10,4 +10,4 @@ aleatoriamente. Nota: utilizar la clase Random de java.
 ● Habrá k hilos, entre los cuales se dividirá el trabajo a realizar: cada uno
 debe ocuparse de proporcionar la suma parcial de un segmento del arreglo.
 ● Habrá un programa principal que creará y rellenará el arreglo de datos, y
-escribirá el valor final resultante de la suma realizada por lo
+escribirá el valor final resultante de la suma realizada por los hilos. 
