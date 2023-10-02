@@ -1,0 +1,30 @@
+Trabajo Obligatorio y Evaluativo 
+Programacion Concurrente - Universidad Nacional del Comahue - 27/09/2023
+
+Colaboradores:
+- Monserrat Vidal, Maria Elvira - Prof. Informatica.
+- Padron Schneider, Juan Ignacio - Lic. Cs. Computacion.
+
+Dominio: 
+1) Proponga una solucion a este problema utilizando semaforos binarios.
+En un lugar de recreacion para la familia, hay una atracion que es el "Tren Turistico" que
+hace un recorrido por todo el lugar. El tren tiene espacio para C pasajeros. Los pasajeros
+repetidamente esperan para tomar un lugar en el tren. El tren solo puede salir a hacer su 
+recorrido si esta lleno. 
+ - El tren no tiene paradas intermedias. 
+ - Ningun pasajero puede bajarse del tren en medio del recorrido. 
+ - Ningun pasajero puede subir al tren en medio del recorrido. 
+ - Ningun pasajero puede dar otra vuelta antes de bajar del tren. 
+ - Considere que el tren siempre logra llenarse.
+ - Los pasajeeros que no pueden subir porque esta completo deben esperar hasta la 
+ proxima vuelta.
+
+ Considere un hilo llamado controlTren y N hilos pasajero (N>C).
+
+ 2) Ahora considere que los pasajeros deben comprar un ticket para poder utilizar la atracccion.
+ Considere una maquina expendedora de tickets, que va llevando la cuenta de cuantos tickets se 
+ venden. 
+
+ Modifique al pasajero para contemplar la situacion. Considere el uso de metodos sincronizados 
+ en caso de ser necesario. 
+ 
