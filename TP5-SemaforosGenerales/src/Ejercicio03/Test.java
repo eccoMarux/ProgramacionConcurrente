@@ -1,5 +1,5 @@
 package Ejercicio03;
-public class Main {
+public class Test {
     public static void main(String[] args) {
         int cantidadComedores = 5;
         Comedor comedor = new Comedor(cantidadComedores);
