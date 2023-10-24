@@ -3,20 +3,20 @@ package Ejercicio03;
 class Perro extends Thread {
     private Comedor comedor;
 
-    public Perro(Comedor comedor) {
+    public Perro(Comedor comedor, String unNombre) {
+        super(unNombre);
         this.comedor = comedor;
     }
 
     public void run() {
-        try {
-            while (true) {
-                comedor.comePerro();
-                comedor.liberarComedor();
-                // Simulación de tiempo entre comidas de perros
-                Thread.sleep(2500);
+        while (true) {
+            try {
+                comedor.comer();
+                Thread.sleep(1000); // Simular que el perro come
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
+
     }
 }
