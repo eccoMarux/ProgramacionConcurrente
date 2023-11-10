@@ -1,4 +1,4 @@
-package ej2;
+package Ejercicio02;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;

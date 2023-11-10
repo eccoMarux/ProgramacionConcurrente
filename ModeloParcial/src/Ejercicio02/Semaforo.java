@@ -1,4 +1,4 @@
-package ej2;
+package Ejercicio02;
 
 public class Semaforo extends Thread{
     private GestorCruce cruce;
