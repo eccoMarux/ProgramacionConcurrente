@@ -1,0 +1,16 @@
+2. Cruce de calles (DESAFIO: sería importante que lo resuelvas, pero no es obligatorio -
+suma para la promoción)
+Sea un cruce de calles, por el que circulan coches de Oeste a Este y de Norte a Sur. Para
+regular el tráfico hay dos semáforos, uno en la entrada oeste y otro en la entrada norte, y dos
+sensores que se activan cuando llega un coche a la entrada correspondiente. También hay
+sensores que indican la salida del cruce.
+Se desea desarrollar el recurso compartido GestorCruce para que simule la gestión de los
+semáforos de la siguiente forma:
+- Los coches se modelan como hilos (threads) que invocan un método llegaNorte() o
+llegaOeste() cuando llegan al cruce.
+- Si el semáforo correspondiente está en verde, el coche pasa inmediatamente. Si está en rojo,
+espera hasta que esté verde.
+- Los coches tardan un cierto tiempo en pasar el cruce. Al salir invocan un método sale() en el
+recurso compartido GestorCruce.
+- Un hilo de control llama a un método cambiaSemáforos() cada cierto tiempo para cambiar la
+configuración de los semáforos.

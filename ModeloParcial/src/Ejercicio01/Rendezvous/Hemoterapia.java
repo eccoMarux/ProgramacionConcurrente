@@ -1,11 +1,11 @@
-package ej1;
+package Rendezvous;
 
 import java.util.concurrent.Semaphore;
 
-public class Emoterapia {
+public class Hemoterapia {
     private Semaphore llamada, salaEspera, recepcionista, dormirDonante1, entrevista, dormirDonante2, especialista, dormirDonante3;
 
-    public Emoterapia(int cant){
+    public Hemoterapia(int cant){
         llamada = new Semaphore(1, true);
         salaEspera = new Semaphore(cant, true);
         recepcionista = new Semaphore(0, true);

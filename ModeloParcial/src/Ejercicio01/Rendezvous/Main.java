@@ -1,9 +1,9 @@
-package ej1;
+package Rendezvous;
 
 public class Main {
     
     public static void main(String[] args) {
-        Emoterapia clinica = new Emoterapia(5);
+        Hemoterapia clinica = new Hemoterapia(5);
         Donante unDonante;
         Recepcionista unRecepcionista = new Recepcionista(clinica);
         Entrevista unEntrevista = new Entrevista(clinica);

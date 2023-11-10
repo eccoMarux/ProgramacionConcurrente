@@ -1,18 +1,18 @@
-package ej1;
+package Rendezvous;
 
-public class Entrevista extends Thread{
-    private Emoterapia clinica;
+public class Recepcionista extends Thread{
+    private Hemoterapia clinica;
 
-    public Entrevista(Emoterapia clinica){
+    public Recepcionista(Hemoterapia clinica){
         this.clinica = clinica;
     }
 
     public void run(){
         try {
             while (true) {
-                clinica.empezarEntrevista();
+                clinica.atenderLlamado();
                 Thread.sleep(5000);
-                clinica.terminarEntrevista();
+                clinica.terminarLlamado();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

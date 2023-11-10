@@ -1,0 +1,13 @@
+6. Torre de control
+Se desea modelar la torre de control de un aeropuerto con una única pista. La torre otorga
+permiso para aterrizar y despegar a distintos aviones. Resuelva los siguientes problemas
+usando semáforos, modelando cada avión como un thread independiente que desea utilizar
+la pista. Tenga en cuenta que aterrizar y despegar no son acciones atómicas, y por lo tanto,
+requieren de cierto tiempo.
+a. Proponga una solución que garantice en todo momento que el número máximo de
+aviones utilizando la pista es uno. Considerando que los aviones que desean aterrizar
+tienen prioridad por sobre los que desean despegar. La torre debe priorizar el despegue
+sobre el aterrizaje cada diez aterrizajes y mantener el comportamiento el resto del
+tiempo.
+Nota: considere que cuando un avión aterriza pasa un tiempo en tierra, fuera de la
+pista. Considere además que siempre hay lugar en ese espacio.
