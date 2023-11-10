@@ -1,0 +1,21 @@
+1. Sala de museo.
+Se quiere desarrollar un sistema para controlar la temperatura y el número de personas que se
+encuentran en una sala de un museo. En condiciones normales, se permiten 50 personas en la sala.
+Si la temperatura sube por encima de un umbral (tUmbral = 30), se limita el número de personas a
+35. Si cuando se detecta este suceso el número de personas en la sala es mayor que 35, no es
+necesario desalojarlas. Si una persona jubilada intenta entrar, tendrá prioridad frente al resto de
+personas que estén esperando. Cada persona se representa mediante un hilo. Además, hay un hilo
+que mide periódicamente la temperatura de la sala y notifica su valor al sistema. Se pide
+desarrollar un monitor (GestorSala) que sincronice los hilos que representan personas y al hilo que
+mide la temperatura, de acuerdo con las especificaciones anteriores.
+a. Utilizar locks, proporcionando los siguientes métodos:
+... void entrarSala()
+// se invoca cuando una persona quiere entrar en la sala.
+... void entrarSalaJubilado()
+// se invoca cuando una persona jubilada quiere entrar en la sala.
+... void salirSala()
+// se invoca cuando una persona, jubilada o no, quiere salir de la sala.
+... void notificarTemperatura(int temperatura)
+// lo invoca la hebra que mide la temperatura de la sala para indicar el último valor medido.
+Observación: No es necesario garantizar que el orden de acceso a la sala coincide con el orden de
+llegada a la puerta de entrada.
