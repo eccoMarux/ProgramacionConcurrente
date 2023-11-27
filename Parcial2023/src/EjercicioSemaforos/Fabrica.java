@@ -1,4 +1,5 @@
 package EjercicioSemaforos;
+
 import java.util.concurrent.Semaphore;
 
 public class Fabrica {
@@ -8,6 +9,7 @@ public class Fabrica {
     private Semaphore embotelladorAgua, embotelladorVino, empaquetador, transportador;
     // Variables de utilidad
     private char tipoCaja;
+    private int contadorBotellas;
 
     public Fabrica() {
         cajaVino = new Semaphore(10);
@@ -18,6 +20,7 @@ public class Fabrica {
         empaquetador = new Semaphore(0);
         transportador = new Semaphore(0);
         tipoCaja = '-';
+        contadorBotellas = 0;
     }
 
     public void embotellar() {
@@ -27,10 +30,18 @@ public class Fabrica {
                 tipoCaja = 'V';
                 System.out.println("Embotellador de Vino: Cargando botella.");
                 Thread.sleep(4000); // simulando carga.
-                if (cajaVino.tryAcquire()) { // Puedo empaquetar
-                    System.out.println("Embotellador de Vino: Botella empaquetada.");
+                contadorBotellas++;
+                if (contadorBotellas == 10) { // Completé 10 botellas
+                    System.out.println("Embotellador de Vino: despertar empaquetador.");
+                    //Posible problema.
                     empaquetador.release();
+                    contadorBotellas = 0;
+                    cajaVino.acquire();
+                    System.out.println("Embotellador de Vino: Botella empaquetada.");
+                    embotelladorVino.release();
                 } else {
+                    cajaVino.acquire();
+                    System.out.println("Embotellador de Vino: Botella empaquetada.");
                     embotelladorVino.release();
                 }
             } else {
@@ -38,10 +49,18 @@ public class Fabrica {
                 tipoCaja = 'A';
                 System.out.println("Embotellador de Agua: Cargando botella.");
                 Thread.sleep(4000); // simulando carga.
-                if (cajaAguaSabor.tryAcquire()) { // Puedo empaquetar
-                    System.out.println("Embotellador de Agua: Botella empaquetada.");
+                contadorBotellas++;
+                if (contadorBotellas == 10) { // Completé 10 botellas
+                    System.out.println("Embotellador de Agua: Despertar empaquetador.");
+                    //Posible problema.
                     empaquetador.release();
+                    contadorBotellas = 0;
+                    cajaAguaSabor.acquire();
+                    System.out.println("Embotellador de Agua: Botella empaquetada.");
+                    embotelladorAgua.release();
                 } else {
+                    cajaAguaSabor.acquire();
+                    System.out.println("Embotellador de Agua: Botella empaquetada.");
                     embotelladorAgua.release();
                 }
             }
@@ -61,9 +80,11 @@ public class Fabrica {
                     System.out.println("Empaquetador: Empaquetando caja de Agua.");
                     cajaAguaSabor.release(10);
                 }
-                transportador.release();
             } else {
-                empaquetador.release();
+                System.out.println("Empaquetador: No queda espacio en el almacen.");
+                System.out.println("Empaquetador: Despetar transportdor.");
+                transportador.release();
+                //empaquetador.release(); donde devolver el permiso?
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
