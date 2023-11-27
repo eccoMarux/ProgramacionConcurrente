@@ -1,0 +1,21 @@
+Planta embotelladora
+En una fabrica se tienen dos tipos de procesos que modelan una planta embotelladora de bebidas
+y que trabajan en paralelo:
+- <<Embotellador>> se encarga de preparar botellas de un litro, que iran ubicandose en una caja 
+disponible para ello. Las botellas pueden ser de vino o de agua saborizada. Existen varios 
+embotelladores. No se mezclan las botellas de vino con las de agua saborizada. Cada Embotellador
+se dedica a un tipo de botellas.
+- <<Empaquetador>> se encarga de empaquetar y reponer las cajas donde se van colocando las botellas. 
+Existe un solo empaquetador. 
+Cada vez que un embotellador prepara una bebida, esta se coloca en una caja
+(de vino o de agua saborizada segun corresponda), que tiene una capacidad de 10 litros.
+Si al colocar la botella la caja queda llena, se envia una señal al empaquetador que toma la caja, 
+la sella y la guarda en un almacen. Luego el empaquetador deposita una nueva caja con capacidad de 
+10 botellas, totalmente vacia. Tenga en cuanta que si el empaquetador esta haciendo su labor 
+retirando una caja de vino, el embotellador no podra colocar sus botellas de vino ya que en esos 
+momentos no hay una caja disponible para vino (igualmente sucede con las botellas de agua saborizada).
+Ademas, si el almacen esta lleno (capacida maxima de 100 lts), un camion sale de reparto por la ciudad
+liberando el almacen. 
+
+Considerar hilos Embotellador, 1 hilo Empaquetador y 1 hilo Transportador. Simular la situacion planteada.
+No olvidar hacer el "main".
