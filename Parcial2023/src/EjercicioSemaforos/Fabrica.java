@@ -8,8 +8,8 @@ public class Fabrica {
     // Semaforos binarios
     private Semaphore embotelladorAgua, embotelladorVino, empaquetador, transportador;
     // Variables de utilidad
-    private char tipoCaja;
-    private int contadorBotellas;
+     
+    private int contadorBotellasVino, contadorBotellasAgua;
 
     public Fabrica() {
         cajaVino = new Semaphore(10);
@@ -19,48 +19,49 @@ public class Fabrica {
         embotelladorVino = new Semaphore(1);
         empaquetador = new Semaphore(0);
         transportador = new Semaphore(0);
-        tipoCaja = '-';
-        contadorBotellas = 0;
+         
+        contadorBotellasVino = 0;
+        contadorBotellasAgua = 0;
     }
 
     public void embotellar() {
         try {
             if (Thread.currentThread().getName().charAt(0) == 'V') {
                 embotelladorVino.acquire();
-                tipoCaja = 'V';
+                 
                 System.out.println("Embotellador de Vino: Cargando botella.");
                 Thread.sleep(4000); // simulando carga.
-                contadorBotellas++;
-                if (contadorBotellas == 10) { // Completé 10 botellas
+                contadorBotellasVino++;
+                if (contadorBotellasVino == 10) { // Completé 10 botellas
                     System.out.println("Embotellador de Vino: despertar empaquetador.");
                     //Posible problema.
                     empaquetador.release();
-                    contadorBotellas = 0;
+                    
                     cajaVino.acquire();
-                    System.out.println("Embotellador de Vino: Botella empaquetada.");
+                    System.out.println("Embotellador de Vino: Botella empaquetada."+contadorBotellasVino);
                     embotelladorVino.release();
                 } else {
                     cajaVino.acquire();
-                    System.out.println("Embotellador de Vino: Botella empaquetada.");
+                    System.out.println("Embotellador de Vino: Botella empaquetada."+contadorBotellasVino);
                     embotelladorVino.release();
                 }
             } else {
                 embotelladorAgua.acquire();
-                tipoCaja = 'A';
+                 
                 System.out.println("Embotellador de Agua: Cargando botella.");
                 Thread.sleep(4000); // simulando carga.
-                contadorBotellas++;
-                if (contadorBotellas == 10) { // Completé 10 botellas
+                contadorBotellasAgua++;
+                if (contadorBotellasAgua == 10) { // Completé 10 botellas
                     System.out.println("Embotellador de Agua: Despertar empaquetador.");
                     //Posible problema.
                     empaquetador.release();
-                    contadorBotellas = 0;
+                    
                     cajaAguaSabor.acquire();
-                    System.out.println("Embotellador de Agua: Botella empaquetada.");
+                    System.out.println("Embotellador de Agua: Botella empaquetada."+contadorBotellasAgua);
                     embotelladorAgua.release();
                 } else {
                     cajaAguaSabor.acquire();
-                    System.out.println("Embotellador de Agua: Botella empaquetada.");
+                    System.out.println("Embotellador de Agua: Botella empaquetada."+contadorBotellasAgua);
                     embotelladorAgua.release();
                 }
             }
@@ -72,19 +73,21 @@ public class Fabrica {
     public void empaquetar() {
         try {
             empaquetador.acquire();
-            if (almacen.tryAcquire()) {
-                if (tipoCaja == 'V') {
+            if (almacen.tryAcquire()) { //Poner contador con almacen != 10 cajas
+                if (contadorBotellasVino == 10) {
                     System.out.println("Empaquetador: Empaquetando caja de Vino.");
                     cajaVino.release(10);
-                } else {
+                    contadorBotellasVino =0;
+                } else if (contadorBotellasAgua == 10) {
                     System.out.println("Empaquetador: Empaquetando caja de Agua.");
                     cajaAguaSabor.release(10);
+                    contadorBotellasAgua =0;
                 }
             } else {
                 System.out.println("Empaquetador: No queda espacio en el almacen.");
                 System.out.println("Empaquetador: Despetar transportdor.");
                 transportador.release();
-                //empaquetador.release(); donde devolver el permiso?
+                //empaquetador.release(); otro metodo con otro semaforo.
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
